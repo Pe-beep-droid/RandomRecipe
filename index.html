@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Recipe</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      #recipe {
+        margin-top: 20px;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .active {
+        background-color: #0076df;
+        color: white;
+      }
+      .diet-buttons {
+        margin-bottom: 20px;
+      }
+      .diet-buttons button {
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Random Recipe</h1>
+    <h2>Diet Type</h2>
+    <div class="diet-buttons">
+      <button onclick="toggleDiet('gluten-free')">Gluten Free</button>
+      <button onclick="toggleDiet('ketogenic')">Ketogenic</button>
+      <button onclick="toggleDiet('vegetarian')">Vegetarian</button>
+      <button onclick="toggleDiet('lacto-vegetarian')">Lacto-Vegetarian</button>
+      <button onclick="toggleDiet('ovo-vegetarian')">Ovo-Vegetarian</button>
+      <button onclick="toggleDiet('vegan')">Vegan</button>
+      <button onclick="toggleDiet('pescetarian')">Pescetarian</button>
+      <button onclick="toggleDiet('paleo')">Paleo</button>
+      <button onclick="toggleDiet('primal')">Primal</button>
+      <button onclick="toggleDiet('whole30')">Whole30</button>
+    </div>
+    <button onclick="fetchRecipe()">Get Recipe</button>
+    <div id="recipe"></div>
+
+    <script>
+      let currentDiet = null;
+
+      function toggleDiet(diet) {
+        if (currentDiet === diet) {
+          currentDiet = null;
+        } else {
+          currentDiet = diet;
+        }
+        updateButtons();
+      }
+
+      function updateButtons() {
+        const dietButtons = document.querySelectorAll(".diet-buttons button");
+        dietButtons.forEach((button) => {
+          button.classList.remove("active");
+        });
+        if (currentDiet) {
+          const activeButton = document.querySelector(
+            `button[onclick="toggleDiet('${currentDiet}')"]`
+          );
+          activeButton.classList.add("active");
+        }
+      }
+
+      async function fetchRecipe() {
+        const apiKey = "ac2f7ed90d2248d8b93109c56c1dd6d7";
+        let apiUrl = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}`;
+
+        if (currentDiet) {
+          apiUrl = `https://api.spoonacular.com/recipes/random?number=1&tags=${currentDiet}&apiKey=${apiKey}`;
+        }
+
+        try {
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+          const recipe = data.recipes[0];
+
+          document.getElementById("recipe").innerHTML = `
+            <h2>${recipe.title}</h2>
+            <img src="${recipe.image}" alt="${recipe.title}">
+            <p>${recipe.instructions || "Instructions are not available."}</p>
+          `;
+        } catch (error) {
+          console.error("Error fetching the recipe:", error);
+          document.getElementById("recipe").innerHTML =
+            "<p>Sorry, something went wrong. Please try again later.</p>";
+        }
+      }
+    </script>
+  </body>
+</html>
