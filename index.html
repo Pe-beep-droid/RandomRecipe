@@ -3,12 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Random Recipe</title>
+    <meta name="description" content="A website that gives you a random recipe based on your preferences.">
+    <meta name="keywords" content="recipe,generator,random,food,diet,cuisine,intolerances">
+    <meta property="og:title" content="Random Recipe Generator">
+    <meta property="og:description" content="A website that gives you a random recipe based on your preferences.">
+    <meta property="og:url" content="https://www.choosemydinner.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.choosemydinner.com/background.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Random Recipe Generator">
+    <meta name="twitter:description" content="A website that gives you a random recipe based on your preferences.">
+    <meta name="twitter:image" content="https://www.choosemydinner.com/background.jpg">
+    <meta name="author" content="Pedro Teixeira">
+    <meta name="robots" content="index, follow">
+    
+    <title>Random Recipe Generator</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: garamond, sans-serif;
         text-align: center;
         margin: 20px;
+        background-image: url('background.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+      h1 {
+        font-size: 70px;
+      }
+      h2 {
+        font-size: 35px;
+      }
+      h3 {
+        font-size: 40px;
       }
       #recipe {
         margin-top: 20px;
@@ -17,8 +44,8 @@
         max-width: 100%;
         height: auto;
       }
-      .active {
-        background-color: #0076df;
+      .diet-buttons button.active {
+        background-color: #d9ad90;
         color: white;
       }
       .diet-buttons {
@@ -26,13 +53,80 @@
       }
       .diet-buttons button {
         margin: 5px;
+        border-radius: 5px;
+        background-color: #e8e1e0;
+        height: 35px;
+        max-width: 170px;
+        font-size: 20px;
+      }
+      button {
+        height: 50px;
+        width: 200px;
+        border-radius: 10px;
+        background-color: #6eca43;
+        font-size: 30px;
+      }
+      .recipe-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .recipe-container img {
+        width: 70%;
+        max-width: 1000px;
+        border-radius: 5%;
+      }
+      .recipe-container p, li {
+        width: 70%;
+        max-width: 1000px;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .meal-buttons {
+        margin-bottom: 20px;
+      }
+
+      .meal-buttons button {
+        margin: 5px;
+        border-radius: 5px;
+        background-color: #e8e1e0;
+        height: 35px;
+        max-width: 170px;
+        font-size: 20px;
+      }
+
+      .meal-buttons button.active {
+        background-color: #d9ad90;
+        color: white;
+      }
+      .dropdowns{
+        display: flex; 
+        justify-content: center; 
+        gap: 10px; 
+        margin-bottom: 20px;
+        margin-top: 60px;
+      }
+      select {
+        background-color: #e8e1e0;
+        height: 35px;
+        font-size: 20px;
+      }
+      #cuisineDropdown option,
+      #intolerancesDropdown option,
+      #maxReadyTimeDropdown option {
+        background-color: #e8e1e0;
+
+
       }
     </style>
   </head>
   <body>
-    <h1>Random Recipe</h1>
+    <h1>Random Recipe Generator</h1>
     <h2>Diet Type</h2>
     <div class="diet-buttons">
+      <button onclick="toggleDiet(null)">Anything</button>
       <button onclick="toggleDiet('gluten-free')">Gluten Free</button>
       <button onclick="toggleDiet('ketogenic')">Ketogenic</button>
       <button onclick="toggleDiet('vegetarian')">Vegetarian</button>
@@ -42,54 +136,190 @@
       <button onclick="toggleDiet('pescetarian')">Pescetarian</button>
       <button onclick="toggleDiet('paleo')">Paleo</button>
       <button onclick="toggleDiet('primal')">Primal</button>
-      <button onclick="toggleDiet('whole30')">Whole30</button>
     </div>
+    <h2>Meal Type</h2>
+    <div class="meal-buttons">
+      <button onclick="toggleMealType(null)">Any</button>
+      <button onclick="toggleMealType('main course')">Main Course</button>
+      <button onclick="toggleMealType('side dish')">Side Dish</button>
+      <button onclick="toggleMealType('dessert')">Dessert</button>
+      <button onclick="toggleMealType('appetizer')">Appetizer</button>
+      <button onclick="toggleMealType('salad')">Salad</button>
+      <button onclick="toggleMealType('breakfast')">Breakfast</button>
+      <button onclick="toggleMealType('soup')">Soup</button>
+      <button onclick="toggleMealType('snack')">Snack</button>
+      <button onclick="toggleMealType('fingerfood')">Finger Food</button>
+    </div>
+
+    <div class="dropdowns">
+      <select id="cuisineDropdown">
+        <option value="">Cuisine</option>
+        <option value="">Any</option>
+        <option value="african">African</option>
+        <option value="asian">Asian</option>
+        <option value="american">American</option>
+        <option value="british">British</option>
+        <option value="cajun">Cajun</option>
+        <option value="caribbean">Caribbean</option>
+        <option value="chinese">Chinese</option>
+        <option value="eastern-european">Eastern European</option>
+        <option value="european">European</option>
+        <option value="french">French</option>
+        <option value="german">German</option>
+        <option value="greek">Greek</option>
+        <option value="indian">Indian</option>
+        <option value="irish">Irish</option>
+        <option value="italian">Italian</option>
+        <option value="japanese">Japanese</option>
+        <option value="jewish">Jewish</option>
+        <option value="korean">Korean</option>
+        <option value="latin-american">Latin American</option>
+        <option value="mediterranean">Mediterranean</option>
+        <option value="mexican">Mexican</option>
+        <option value="middle-eastern">Middle Eastern</option>
+        <option value="nordic">Nordic</option>
+        <option value="southern">Southern</option>
+        <option value="spanish">Spanish</option>
+        <option value="thai">Thai</option>
+        <option value="vietnamese">Vietnamese</option>
+    </select>
+    
+      
+      <select id="intolerancesDropdown">
+        <option value="">Intolerances</option>
+        <option value="">None</option>
+        <option value="dairy">Dairy</option>
+        <option value="egg">Egg</option>
+        <option value="gluten">Gluten</option>
+        <option value="grain">Grain</option>
+        <option value="peanut">Peanut</option>
+        <option value="seafood">Seafood</option>
+        <option value="sesame">Sesame</option>
+        <option value="shellfish">Shellfish</option>
+        <option value="soy">Soy</option>
+        <option value="sulfite">Sulfite</option>
+        <option value="tree nut">Tree Nut</option>
+        <option value="wheat">Wheat</option>
+
+      </select>
+      
+      <select id="maxReadyTimeDropdown">
+        <option value="">Max Ready Time</option>
+        <option value="">Any</option>
+        <option value="15">15 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="45">45 minutes</option>
+        <option value="60">1 hour</option>
+      </select>
+    </div>
+    
     <button onclick="fetchRecipe()">Get Recipe</button>
     <div id="recipe"></div>
 
     <script>
       let currentDiet = null;
-
+      let currentMealType = null;
+    
       function toggleDiet(diet) {
-        if (currentDiet === diet) {
-          currentDiet = null;
-        } else {
-          currentDiet = diet;
-        }
+        currentDiet = diet;
         updateButtons();
       }
-
+      function toggleMealType(mealType) {
+        currentMealType = mealType;
+        updateMealButtons();
+      }
+    
       function updateButtons() {
         const dietButtons = document.querySelectorAll(".diet-buttons button");
         dietButtons.forEach((button) => {
           button.classList.remove("active");
         });
-        if (currentDiet) {
-          const activeButton = document.querySelector(
-            `button[onclick="toggleDiet('${currentDiet}')"]`
-          );
+        const activeButton = document.querySelector(
+          `button[onclick="toggleDiet('${currentDiet}')"]`
+        );
+        if (activeButton) {
           activeButton.classList.add("active");
+        } else {
+          const anythingButton = document.querySelector(
+            `button[onclick="toggleDiet(null)"]`
+          );
+          anythingButton.classList.add("active");
+        }
+      }
+    
+      function updateMealButtons() {
+        const mealButtons = document.querySelectorAll(".meal-buttons button");
+        mealButtons.forEach((button) => {
+          button.classList.remove("active");
+        });
+        
+        if (currentMealType === null) {
+          const anyButton = document.querySelector(
+            `button[onclick="toggleMealType(null)"]`
+          );
+          if (anyButton) {
+            anyButton.classList.add("active");
+          }
+        } else {
+          const activeButton = document.querySelector(
+            `button[onclick="toggleMealType('${currentMealType}')"]`
+          );
+          if (activeButton) {
+            activeButton.classList.add("active");
+          }
         }
       }
 
+    
       async function fetchRecipe() {
         const apiKey = "ac2f7ed90d2248d8b93109c56c1dd6d7";
         let apiUrl = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}`;
-
-        if (currentDiet) {
-          apiUrl = `https://api.spoonacular.com/recipes/random?number=1&tags=${currentDiet}&apiKey=${apiKey}`;
+    
+        const params = [];
+        let tags = [];
+    
+        // Get selected values from dropdowns
+        const selectedCuisine = document.getElementById("cuisineDropdown").value;
+        const selectedIntolerances = document.getElementById("intolerancesDropdown").value;
+        const selectedMaxReadyTime = document.getElementById("maxReadyTimeDropdown").value;
+    
+        // Add selected values to tags if they exist
+        if (currentDiet) tags.push(currentDiet);
+        if (currentMealType) tags.push(currentMealType);
+        if (selectedCuisine) tags.push(selectedCuisine);
+        if (selectedIntolerances) tags.push(selectedIntolerances);
+    
+        if (tags.length > 0) {
+          params.push(`tags=${tags.join(",")}`);
         }
-
+        if (selectedMaxReadyTime) {
+          params.push(`maxReadyTime=${selectedMaxReadyTime}`);
+        }
+    
+        if (params.length > 0) {
+          apiUrl += `&${params.join("&")}`;
+        }
+    
         try {
           const response = await fetch(apiUrl);
           const data = await response.json();
           const recipe = data.recipes[0];
-
+    
           document.getElementById("recipe").innerHTML = `
-            <h2>${recipe.title}</h2>
-            <img src="${recipe.image}" alt="${recipe.title}">
-            <p>${recipe.instructions || "Instructions are not available."}</p>
+            <div class="recipe-container">
+              <h2>${recipe.title}</h2>
+              <img src="${recipe.image}" alt="${recipe.title}">
+              <h3>Ingredients:</h3>
+              <ul>
+                ${recipe.extendedIngredients
+                  .map((ingredient) => `<li>${ingredient.original}</li>`)
+                  .join("")}
+              </ul>
+              <h3>Instructions:</h3>
+              <p>${recipe.instructions || "Instructions are not available."}</p>
+            </div>
           `;
+    
         } catch (error) {
           console.error("Error fetching the recipe:", error);
           document.getElementById("recipe").innerHTML =
@@ -97,7 +327,11 @@
         }
       }
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1096257113598074"
-     crossorigin="anonymous"></script>
+    
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1096257113598074"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
