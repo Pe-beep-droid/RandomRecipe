@@ -46,6 +46,11 @@ button {
   font-size: 30px;
   color: #1f6aa5;
 }
+button:active {
+  transform: scale(0.95);
+  background-color: #5baa3a; 
+  box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.2); 
+}
 .recipe-container {
   width: 100%;
   display: flex;
