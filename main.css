@@ -106,12 +106,24 @@ select {
   }
   .diet-buttons button,
   .meal-buttons button {
-    height: 50px;
-    font-size: 18px;;
+    height: 60px;
+    font-size: 18px;
+    max-width: 40%;
     
   }
   button {
     height: 50px;
     width: 250px;
+  }
+  .recipe-container img {
+    width: 95%;
+    max-width: 1000px;
+    border-radius: 5%;
+  }
+  .recipe-container p, li {
+    width: 95%;
+    max-width: 1000px;
+    font-size: 25px;
+    font-weight: bold;
   }
 }
