@@ -104,6 +104,9 @@ select {
     flex-direction: column;
 
   }
+  body{
+    background-image: url('background_phone.jpg');
+  }
   .diet-buttons button,
   .meal-buttons button {
     height: 60px;
