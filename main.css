@@ -44,6 +44,7 @@ button {
   border-radius: 10px;
   background-color: #6eca43;
   font-size: 30px;
+  color: #1f6aa5;
 }
 .recipe-container {
   width: 100%;
@@ -91,6 +92,7 @@ select {
   background-color: #e8e1e0;
   height: 35px;
   font-size: 20px;
+  color: #1f6aa5;
 }
 #cuisineDropdown option,
 #intolerancesDropdown option,
