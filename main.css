@@ -102,12 +102,11 @@ select {
     flex-direction: column;
 
   }
-  .diet-buttons button {
-    height: 40px;
+  .diet-buttons button,
+  .meal-buttons butto {
+    height: 50px;
+    font-size: 18px;;
     
-  }
-  .meal-buttons button {
-    height: 40px;
   }
   button {
     height: 50px;
