@@ -231,123 +231,123 @@
     <button onclick="fetchRecipe()">Get Recipe</button>
     <div id="recipe"></div>
 
-    <script>
-      let currentDiet = null;
-      let currentMealType = null;
-
-      function toggleDiet(diet) {
-        currentDiet = diet;
-        updateButtons();
+  <script>
+    let currentDiet = null;
+    let currentMealType = null;
+  
+    function toggleDiet(diet) {
+      currentDiet = diet;
+      updateButtons();
+    }
+  
+    function toggleMealType(mealType) {
+      currentMealType = mealType;
+      updateMealButtons();
+    }
+  
+    function updateButtons() {
+      const dietButtons = document.querySelectorAll(".diet-buttons button");
+      dietButtons.forEach((button) => {
+        button.classList.remove("active");
+      });
+      const activeButton = document.querySelector(
+        `button[onclick="toggleDiet('${currentDiet}')"]`
+      );
+      if (activeButton) {
+        activeButton.classList.add("active");
+      } else {
+        const anythingButton = document.querySelector(
+          `button[onclick="toggleDiet(null)"]`
+        );
+        anythingButton.classList.add("active");
       }
-
-      function toggleMealType(mealType) {
-        currentMealType = mealType;
-        updateMealButtons();
-      }
-
-      function updateButtons() {
-        const dietButtons = document.querySelectorAll(".diet-buttons button");
-        dietButtons.forEach((button) => {
-          button.classList.remove("active");
-        });
+    }
+  
+    function updateMealButtons() {
+      const mealButtons = document.querySelectorAll(".meal-buttons button");
+      mealButtons.forEach((button) => {
+        button.classList.remove("active");
+      });
+  
+      if (currentMealType === null) {
+        const anyButton = document.querySelector(
+          `button[onclick="toggleMealType(null)"]`
+        );
+        if (anyButton) {
+          anyButton.classList.add("active");
+        }
+      } else {
         const activeButton = document.querySelector(
-          button[onclick="toggleDiet('${currentDiet}')"]
+          `button[onclick="toggleMealType('${currentMealType}')"]`
         );
         if (activeButton) {
           activeButton.classList.add("active");
-        } else {
-          const anythingButton = document.querySelector(
-            button[onclick="toggleDiet(null)"]
-          );
-          anythingButton.classList.add("active");
         }
       }
-
-      function updateMealButtons() {
-        const mealButtons = document.querySelectorAll(".meal-buttons button");
-        mealButtons.forEach((button) => {
-          button.classList.remove("active");
-        });
-
-        if (currentMealType === null) {
-          const anyButton = document.querySelector(
-            button[onclick="toggleMealType(null)"]
-          );
-          if (anyButton) {
-            anyButton.classList.add("active");
-          }
-        } else {
-          const activeButton = document.querySelector(
-            button[onclick="toggleMealType('${currentMealType}')"]
-          );
-          if (activeButton) {
-            activeButton.classList.add("active");
-          }
-        }
+    }
+  
+    async function fetchRecipe() {
+      const apiUrl = `/netlify/functions/fetchRecipe`;  // Now calling the serverless function
+  
+      const params = [];
+      let tags = [];
+      let exclude = [];
+  
+      // Get selected values from dropdowns
+      const selectedCuisine =
+        document.getElementById("cuisineDropdown").value;
+      const selectedIntolerances = document.getElementById(
+        "intolerancesDropdown"
+      ).value;
+      const selectedMaxReadyTime = document.getElementById(
+        "maxReadyTimeDropdown"
+      ).value;
+  
+      // Add selected values to tags if they exist
+      if (currentDiet) tags.push(currentDiet);
+      if (currentMealType) tags.push(currentMealType);
+      if (selectedCuisine) tags.push(selectedCuisine);
+      if (selectedMaxReadyTime)
+        params.push(`maxReadyTime=${selectedMaxReadyTime}`);
+  
+      // Add selected intolerances to exclude list if they exist
+      if (selectedIntolerances) exclude.push(selectedIntolerances);
+  
+      // Construct the API URL with tags and exclude parameters
+      if (tags.length > 0) {
+        apiUrl += `?tags=${tags.join(",")}`;
       }
-
-      async function fetchRecipe() {
-        const apiKey = "ac2f7ed90d2248d8b93109c56c1dd6d7";
-        let apiUrl = https://api.spoonacular.com/recipes/random?apiKey=${apiKey};
-
-        const params = [];
-        let tags = [];
-        let exclude = [];
-
-        // Get selected values from dropdowns
-        const selectedCuisine =
-          document.getElementById("cuisineDropdown").value;
-        const selectedIntolerances = document.getElementById(
-          "intolerancesDropdown"
-        ).value;
-        const selectedMaxReadyTime = document.getElementById(
-          "maxReadyTimeDropdown"
-        ).value;
-
-        // Add selected values to tags if they exist
-        if (currentDiet) tags.push(currentDiet);
-        if (currentMealType) tags.push(currentMealType);
-        if (selectedCuisine) tags.push(selectedCuisine);
-        if (selectedMaxReadyTime)
-          params.push(maxReadyTime=${selectedMaxReadyTime});
-
-        // Add selected intolerances to exclude list if they exist
-        if (selectedIntolerances) exclude.push(selectedIntolerances);
-
-        // Construct the API URL with tags and exclude parameters
-        if (tags.length > 0) {
-          apiUrl += &tags=${tags.join(",")};
-        }
-        if (exclude.length > 0) {
-          apiUrl += &excludeTags=${exclude.join(",")};
-        }
-
-        try {
-          const response = await fetch(apiUrl);
-          const data = await response.json();
-          const recipe = data.recipes[0];
-
-          document.getElementById("recipe").innerHTML = 
-            <div class="recipe-container">
-              <h2>${recipe.title}</h2>
-              <img src="${recipe.image}" alt="${recipe.title}">
-              <h3>Ingredients:</h3>
-              <ul>
-                ${recipe.extendedIngredients
-                  .map((ingredient) => <li>${ingredient.original}</li>)
-                  .join("")}
-              </ul>
-              <h3>Instructions:</h3>
-              <p>${recipe.instructions || "Instructions are not available."}</p>
-            </div>
-          ;
-        } catch (error) {
-          console.error("Error fetching the recipe:", error);
-          document.getElementById("recipe").innerHTML =
-            "<p>Sorry, something went wrong. Please try again later.</p>";
-        }
+      if (exclude.length > 0) {
+        apiUrl += `&excludeTags=${exclude.join(",")}`;
       }
-    </script>
+  
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        const recipe = data;
+  
+        document.getElementById("recipe").innerHTML = `
+          <div class="recipe-container">
+            <h2>${recipe.title}</h2>
+            <img src="${recipe.image}" alt="${recipe.title}">
+            <h3>Ingredients:</h3>
+            <ul>
+              ${recipe.extendedIngredients
+                .map((ingredient) => `<li>${ingredient.original}</li>`)
+                .join("")}
+            </ul>
+            <h3>Instructions:</h3>
+            <p>${recipe.instructions || "Instructions are not available."}</p>
+          </div>
+        `;
+      } catch (error) {
+        console.error("Error fetching the recipe:", error);
+        document.getElementById("recipe").innerHTML =
+          "<p>Sorry, something went wrong. Please try again later.</p>";
+      }
+    }
+  </script>
+
 
     <script
       async
