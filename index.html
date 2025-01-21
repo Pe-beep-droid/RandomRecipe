@@ -287,7 +287,7 @@
       }
 
       async function fetchRecipe() {
-        const apiKey = "ac2f7ed90d2248d8b93109c56c1dd6d7";
+        const apiKey = process.env.API_KEY;
         let apiUrl = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}`;
 
         const params = [];
