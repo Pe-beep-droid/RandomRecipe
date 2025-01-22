@@ -1,7 +1,7 @@
 exports.handler = async (event, context) => {
   const { default: fetch } = await import('node-fetch'); // Dynamic import of node-fetch
 
-  const apiKey = 'b8c2fd349b4046c59542458ddaeda934';
+  const apiKey = process.env.API_KEY;
   if (!apiKey) {
     return {
       statusCode: 500,
