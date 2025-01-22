@@ -1,12 +1,11 @@
-const fetch = require('node-fetch'); // Netlify supports fetch for serverless functions
-
 exports.handler = async (event, context) => {
-  /*const apiKey = process.env.API_KEY;*/
-  const apiKey = 'b8c2fd349b4046c59542458ddaeda934'
+  const { default: fetch } = await import('node-fetch'); // Dynamic import of node-fetch
+
+  const apiKey = 'b8c2fd349b4046c59542458ddaeda934';
   if (!apiKey) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'API Key not configured' })
+      body: JSON.stringify({ error: 'API Key not configured' }),
     };
   }
 
@@ -14,7 +13,7 @@ exports.handler = async (event, context) => {
 
   try {
     const response = await fetch(apiUrl, {
-      headers: { 'Cache-Control': 'no-cache' }
+      headers: { 'Cache-Control': 'no-cache' },
     });
 
     if (!response.ok) {
@@ -30,12 +29,12 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify(recipe) // Return recipe details to the frontend
+      body: JSON.stringify(recipe), // Return recipe details to the frontend
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ error: error.message }),
     };
   }
 };
