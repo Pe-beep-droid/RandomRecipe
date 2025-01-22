@@ -1,7 +1,8 @@
 const fetch = require('node-fetch'); // Netlify supports fetch for serverless functions
 
 exports.handler = async (event, context) => {
-  const apiKey = process.env.API_KEY; // Get API Key from environment variables set in Netlify
+  /*const apiKey = process.env.API_KEY;*/
+  const apiKey = 'b8c2fd349b4046c59542458ddaeda934'
   if (!apiKey) {
     return {
       statusCode: 500,
