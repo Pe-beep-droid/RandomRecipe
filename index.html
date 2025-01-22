@@ -344,6 +344,7 @@
         console.error("Error fetching the recipe:", error);
         document.getElementById("recipe").innerHTML = `
           <p>Sorry, something went wrong. Please try again later.</p>
+          <p><strong>Error Details:</strong> ${error.message}</p>
         `;
       }
     }
