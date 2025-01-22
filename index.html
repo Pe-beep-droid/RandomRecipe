@@ -344,8 +344,6 @@
         console.error("Error fetching the recipe:", error);
         document.getElementById("recipe").innerHTML = `
           <p>Sorry, something went wrong. Please try again later.</p>
-          <p><strong>API URL:</strong> ${apiUrl}</p>
-          <p><strong>API Key:</strong> ${process.env.API_KEY || "Not available"}</p>
         `;
       }
     }
