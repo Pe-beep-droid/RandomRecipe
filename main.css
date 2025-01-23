@@ -1,137 +1,100 @@
-body {
-  font-family: garamond, sans-serif;
-  text-align: center;
-  margin: 20px;
-  background-image: url('background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-h1 {
-  font-size: 70px;
-}
-h2 {
-  font-size: 35px;
-}
-h3 {
-  font-size: 40px;
-}
-#recipe {
-  margin-top: 20px;
-}
-img {
-  max-width: 100%;
-  height: auto;
-}
-.diet-buttons button.active {
-  background-color: #d9ad90;
-  color: white;
-}
-.diet-buttons {
-  margin-bottom: 20px;
-}
-.diet-buttons button {
-  margin: 5px;
-  border-radius: 5px;
-  background-color: #e8e1e0;
-  height: 35px;
-  max-width: 170px;
-  font-size: 20px;
-}
-button {
-  height: 50px;
-  width: 200px;
-  border-radius: 10px;
-  background-color: #6eca43;
-  font-size: 30px;
-  color: #1f6aa5;
-}
-button:active {
-  transform: scale(0.95);
-  background-color: #5baa3a; 
-  box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.2); 
-}
-.recipe-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.recipe-container img {
-  width: 70%;
-  max-width: 1000px;
-  border-radius: 5%;
-}
-.recipe-container p, li {
-  width: 70%;
-  max-width: 1000px;
-  font-size: 30px;
-  font-weight: bold;
-}
-.meal-buttons {
-  margin-bottom: 20px;
-}
-
-.meal-buttons button {
-  margin: 5px;
-  border-radius: 5px;
-  background-color: #e8e1e0;
-  height: 35px;
-  max-width: 170px;
-  font-size: 20px;
-}
-
-.meal-buttons button.active {
-  background-color: #d9ad90;
-  color: white;
-}
-.dropdowns{
-  display: flex; 
-  justify-content: center; 
-  gap: 10px; 
-  margin-bottom: 20px;
-  margin-top: 60px;
-}
-select {
-  background-color: #e8e1e0;
-  height: 35px;
-  font-size: 20px;
-  color: #1f6aa5;
-}
-#cuisineDropdown option,
-#intolerancesDropdown option,
-#maxReadyTimeDropdown option {
-  background-color: #e8e1e0;
-}
-@media only screen and (max-width: 600px) {
-  .dropdowns{
-    flex-direction: column;
-
+  body {
+    font-family: garamond, sans-serif;
+    text-align: center;
+    margin: 20px;
+    background-image: url("background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
-  body{
-    background-image: url('background_phone.jpg');
+  h1 {
+    font-size: 70px;
   }
-  .diet-buttons button,
-  .meal-buttons button {
-    height: 60px;
-    font-size: 18px;
-    max-width: 40%;
-    
+  h2 {
+    font-size: 35px;
+  }
+  h3 {
+    font-size: 40px;
+  }
+  #recipe {
+    margin-top: 20px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  .diet-buttons button.active {
+    background-color: #d9ad90;
+    color: white;
+  }
+  .diet-buttons {
+    margin-bottom: 20px;
+  }
+  .diet-buttons button {
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #e8e1e0;
+    height: 35px;
+    max-width: 170px;
+    font-size: 20px;
   }
   button {
     height: 50px;
-    width: 250px;
+    width: 200px;
+    border-radius: 10px;
+    background-color: #6eca43;
+    font-size: 30px;
+  }
+  .recipe-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .recipe-container img {
-    width: 95%;
+    width: 70%;
     max-width: 1000px;
     border-radius: 5%;
   }
-  .recipe-container p, li {
-    width: 95%;
+  .recipe-container p,
+  li {
+    width: 70%;
     max-width: 1000px;
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bold;
   }
-}
+  .meal-buttons {
+    margin-bottom: 20px;
+  }
+
+  .meal-buttons button {
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #e8e1e0;
+    height: 35px;
+    max-width: 170px;
+    font-size: 20px;
+  }
+
+  .meal-buttons button.active {
+    background-color: #d9ad90;
+    color: white;
+  }
+  .dropdowns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+  }
+  select {
+    background-color: #e8e1e0;
+    height: 35px;
+    font-size: 20px;
+  }
+  #cuisineDropdown option,
+  #intolerancesDropdown option,
+  #maxReadyTimeDropdown option {
+    background-color: #e8e1e0;
+  }
