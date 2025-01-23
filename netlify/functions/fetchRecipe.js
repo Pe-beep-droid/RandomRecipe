@@ -9,9 +9,21 @@ exports.handler = async (event, context) => {
     };
   }
 
-  const apiUrl = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}`;
-
   try {
+    // Extract tags from the query string or body
+    const queryParams = event.queryStringParameters || {};
+    const tags = queryParams.tags || ""; // Extract tags, default to empty string
+    const excludeTags = queryParams.excludeTags || ""; // Extract excludeTags, default to empty string
+
+    // Construct the API URL dynamically
+    let apiUrl = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}`;
+    if (tags) {
+      apiUrl += `&tags=${encodeURIComponent(tags)}`; // Add tags to the URL
+    }
+    if (excludeTags) {
+      apiUrl += `&excludeIngredients=${encodeURIComponent(excludeTags)}`; // Add exclusions to the URL
+    }
+
     const response = await fetch(apiUrl, {
       headers: { 'Cache-Control': 'no-cache' },
     });
