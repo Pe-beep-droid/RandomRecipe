@@ -229,7 +229,9 @@
       if (exclude.length > 0) {
         apiUrl += `&excludeTags=${exclude.join(",")}`;
       }
-  
+      
+      console.log("Generated API URL:", apiUrl);
+      
       try {
         const response = await fetch(apiUrl);
         const data = await response.json();
