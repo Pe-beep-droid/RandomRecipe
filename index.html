@@ -287,7 +287,7 @@
     }
   
     async function fetchRecipe() {
-      const apiUrl = `https://choosemydinner.com/.netlify/functions/fetchRecipe`;  // Now calling the serverless function
+      let apiUrl = `https://choosemydinner.com/.netlify/functions/fetchRecipe`;  // Now calling the serverless function
   
       const params = [];
       let tags = [];
