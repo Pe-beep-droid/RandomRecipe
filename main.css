@@ -98,3 +98,21 @@
   #maxReadyTimeDropdown option {
     background-color: #e8e1e0;
   }
+
+  @media only screen and (max-width: 767px) {
+    body {
+      background-image: url("background_phone.jpg");
+    }
+    .dropdowns {
+      display: flex;
+      flex-direction: column;
+    }
+    button {
+      width: 250px;
+    }
+    .diet-buttons button {
+      max-width: 170px;
+      min-width: 100px;
+
+    }
+  }
