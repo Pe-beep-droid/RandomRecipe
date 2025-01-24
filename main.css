@@ -113,6 +113,9 @@
     .diet-buttons button {
       max-width: 170px;
       min-width: 100px;
+      margin: 3px;
+      height: 40px;
+      font-size: 18px;
 
     }
   }
